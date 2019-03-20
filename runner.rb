@@ -1,3 +1,4 @@
+require 'pry'
 require_relative './results_formatter.rb'
 require_relative './strategies/top_seeds.rb'
 
@@ -5,8 +6,11 @@ class Runner
   def self.run(strategy_klass:)
     teams = TeamRepo.get_teams
     tournament_seeds = TournamentRepo.get_seeds
+    all_team_stats = StatsRepo.get_stats
     tournament_teams = tournament_seeds.reduce([]) do |memo, seed|
       team = teams.find { |t| t.id == seed.team_id }
+      stats = StatsRepo.stats_for_team(stats: all_team_stats, team: team)
+      team.stats = stats
       if team
         team.seed = seed
         memo << team

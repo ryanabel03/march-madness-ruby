@@ -16,10 +16,15 @@ end
 
 class Team
   attr_reader :id, :name
-  attr_accessor :seed
+  attr_accessor :seed, :stats
   def initialize(id:, name:)
     @id = id
     @name = name
     @seed = nil
+  end
+
+  def stat_averages
+    @averages ||= StatsRepo.avg_stats(stats: @stats, team_id: @id)
+    @averages
   end
 end
