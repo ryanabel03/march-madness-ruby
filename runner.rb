@@ -7,6 +7,7 @@ class Runner
     teams = TeamRepo.get_teams
     tournament_seeds = TournamentRepo.get_seeds
     all_team_stats = StatsRepo.get_stats
+    conferences = ConferenceRepo.get_conferences
     tournament_teams = tournament_seeds.reduce([]) do |memo, seed|
       team = teams.find { |t| t.id == seed.team_id }
       stats = StatsRepo.stats_for_team(stats: all_team_stats, team: team)

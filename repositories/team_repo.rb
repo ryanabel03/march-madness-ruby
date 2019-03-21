@@ -27,4 +27,16 @@ class Team
     @averages ||= StatsRepo.avg_stats(stats: @stats, team_id: @id)
     @averages
   end
+
+  def wins
+    @wins ||= StatsRepo.wins(stats: @stats, team_id: @id)
+  end
+
+  def losses
+    @losses ||= StatsRepo.losses(stats: @stats, team_id: @id)
+  end
+
+  def find_conference(conferences: [])
+    @conference ||= ConferenceRepo.conference_for_team(conferences: conferences, team_id: @id)
+  end
 end

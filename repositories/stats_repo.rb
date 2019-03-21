@@ -70,6 +70,18 @@ class StatsRepo
       memo
     end
   end
+
+  def self.wins(stats: [], team_id:)
+    stats.reduce(0) do |memo, stat|
+      stat.winning_team_id == team_id ? memo += 1 : memo
+    end
+  end
+
+  def self.losses(stats: [], team_id:)
+    stats.reduce(0) do |memo, stat|
+      stat.winning_team_id == team_id ? memo : memo += 1
+    end
+  end
 end
 
 class GameStats
